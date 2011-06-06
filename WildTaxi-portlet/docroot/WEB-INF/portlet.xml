@@ -9,10 +9,10 @@
 	<portlet>
 		<portlet-name>WildTaxi</portlet-name>
 		<display-name>WildTaxi</display-name>
-		<portlet-class>com.liferay.util.bridges.mvc.MVCPortlet</portlet-class>
+		<portlet-class>net.sareweb.wildtaxi.p000.ViewRequestsPortlet</portlet-class>
 		<init-param>
 			<name>view-jsp</name>
-			<value>/view.jsp</value>
+			<value>/jsp/p000/view.jsp</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
 		<supports>
