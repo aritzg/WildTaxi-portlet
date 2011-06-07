@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<model-hints>
+	<model name="net.sareweb.wildtaxi.model.Request">
+		<field name="uuid" type="String" />
+		<field name="requestId" type="long" />
+		<field name="name" type="String" />
+		<field name="fromLat" type="float" />
+		<field name="fromLng" type="float" />
+		<field name="fromAddress" type="String" />
+		<field name="toLat" type="float" />
+		<field name="toLng" type="float" />
+		<field name="toAddress" type="String" />
+		<field name="distance" type="long" />
+		<field name="beginDate" type="Date" />
+		<field name="duration" type="Integer" />
+		<field name="state" type="String" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+	</model>
+</model-hints>

@@ -1,0 +1,1 @@
+Liferay.Service.register("Liferay.Service.wt", "net.sareweb.wildtaxi.service");

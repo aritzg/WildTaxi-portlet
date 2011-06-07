@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping default-lazy="false" auto-import="false">
+	<import class="net.sareweb.wildtaxi.model.Request" />
+	<class name="net.sareweb.wildtaxi.model.impl.RequestImpl" table="wt_Request">
+		<cache usage="read-write" />
+		<id name="requestId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="uuid" column="uuid_" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="name" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="fromLat" type="com.liferay.portal.dao.orm.hibernate.FloatType" />
+		<property name="fromLng" type="com.liferay.portal.dao.orm.hibernate.FloatType" />
+		<property name="fromAddress" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="toLat" type="com.liferay.portal.dao.orm.hibernate.FloatType" />
+		<property name="toLng" type="com.liferay.portal.dao.orm.hibernate.FloatType" />
+		<property name="toAddress" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="distance" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="beginDate" type="org.hibernate.type.TimestampType" />
+		<property name="duration" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="state" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+	</class>
+</hibernate-mapping>

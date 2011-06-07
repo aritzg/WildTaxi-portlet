@@ -1,21 +1,36 @@
+<%@include file="/jsp/init.jsp"%>
+
 <%
-/**
- * Copyright (c) 2000-2010 Liferay, Inc. All rights reserved.
- *
- * This library is free software; you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation; either version 2.1 of the License, or (at your option)
- * any later version.
- *
- * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
- */
+List<Request> requests = (List<Request>)request.getAttribute("requests");
+Date loadTime = (Date)request.getAttribute("loadTime");
 %>
 
-<%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet" %>
+<%=loadTime.getTime()%>
 
-<portlet:defineObjects />
+<portlet:resourceURL var="serveRes" >
+	<portlet:param name="resType" value="requests"></portlet:param>
+</portlet:resourceURL>
+<aui:script>
+var delayed;
+function <portlet:namespace />temporizeRequests(){
+	AUI().use('aui-io-request, aui-delayed-task', function(A){
+		delayed = new A.DelayedTask(getLastRequests);
+		delayed.delay(1000);
+	});
+}
 
-This is the <b>WildTaxi</b> portlet.
+function getLastRequests(){
+	AUI().use('aui-io-request', function(A){		
+		A.io.request('<%=serveRes.toString()%>' , {
+	  		on: {
+		   		success: function() {
+		   			//TODO:Pintar en el mapa las request obtenidas
+		   		}
+		   	}
+		});
+	});
+	delayed.delay(1000);
+}
+
+<portlet:namespace />temporizeRequests();
+</aui:script>

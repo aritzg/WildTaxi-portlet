@@ -9,7 +9,7 @@
 	<portlet>
 		<portlet-name>WildTaxi</portlet-name>
 		<display-name>WildTaxi</display-name>
-		<portlet-class>net.sareweb.wildtaxi.p000.ViewRequestsPortlet</portlet-class>
+		<portlet-class>net.sareweb.wildtaxi.portlets.p000.ViewRequestsPortlet</portlet-class>
 		<init-param>
 			<name>view-jsp</name>
 			<value>/jsp/p000/view.jsp</value>

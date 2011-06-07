@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" default-destroy-method="destroy" default-init-method="afterPropertiesSet" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	<bean id="net.sareweb.wildtaxi.service.RequestLocalService" class="net.sareweb.wildtaxi.service.impl.RequestLocalServiceImpl" />
+	<bean id="net.sareweb.wildtaxi.service.RequestLocalServiceUtil" class="net.sareweb.wildtaxi.service.RequestLocalServiceUtil">
+		<property name="service" ref="net.sareweb.wildtaxi.service.RequestLocalService" />
+	</bean>
+	<bean id="net.sareweb.wildtaxi.service.RequestService" class="net.sareweb.wildtaxi.service.impl.RequestServiceImpl" />
+	<bean id="net.sareweb.wildtaxi.service.RequestServiceUtil" class="net.sareweb.wildtaxi.service.RequestServiceUtil">
+		<property name="service" ref="net.sareweb.wildtaxi.service.RequestService" />
+	</bean>
+	<bean id="net.sareweb.wildtaxi.service.persistence.RequestPersistence" class="net.sareweb.wildtaxi.service.persistence.RequestPersistenceImpl" parent="basePersistence" />
+</beans>

@@ -1,0 +1,1 @@
+create index IX_601686C1 on wt_Request (uuid_);
