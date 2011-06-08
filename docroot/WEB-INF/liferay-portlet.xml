@@ -10,6 +10,18 @@
 		<footer-portlet-javascript>/js/main.js</footer-portlet-javascript>
 		<css-class-wrapper>WildTaxi-portlet</css-class-wrapper>
 	</portlet>
+	<portlet>
+		<portlet-name>my-requests-portlet</portlet-name>
+		<icon>/icon.png</icon>
+		<instanceable>false</instanceable>
+		<header-portlet-css>/css/portlet.css</header-portlet-css>
+		<footer-portlet-javascript>
+			/js/javascript.js
+		</footer-portlet-javascript>
+		<css-class-wrapper>
+			my-requests-portlet-portlet
+		</css-class-wrapper>
+	</portlet>
 	<role-mapper>
 		<role-name>administrator</role-name>
 		<role-link>Administrator</role-link>

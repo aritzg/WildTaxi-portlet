@@ -224,6 +224,12 @@ public class RequestLocalServiceUtil {
 		return getService().updateRequest(request, merge);
 	}
 
+	public static java.util.List<net.sareweb.wildtaxi.model.Request> getRequestNewerThanDate(
+		java.util.Date fromDate)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getRequestNewerThanDate(fromDate);
+	}
+
 	public static void clearService() {
 		_service = null;
 	}

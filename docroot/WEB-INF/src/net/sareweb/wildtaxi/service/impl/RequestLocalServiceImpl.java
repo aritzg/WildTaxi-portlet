@@ -14,6 +14,16 @@
 
 package net.sareweb.wildtaxi.service.impl;
 
+import java.util.Date;
+import java.util.List;
+
+import com.liferay.portal.kernel.dao.orm.Criterion;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
+import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;
+import com.liferay.portal.kernel.exception.SystemException;
+
+import net.sareweb.wildtaxi.model.Request;
 import net.sareweb.wildtaxi.service.base.RequestLocalServiceBaseImpl;
 
 /**
@@ -36,4 +46,10 @@ import net.sareweb.wildtaxi.service.base.RequestLocalServiceBaseImpl;
  * @see net.sareweb.wildtaxi.service.RequestLocalServiceUtil
  */
 public class RequestLocalServiceImpl extends RequestLocalServiceBaseImpl {
+	public List<Request> getRequestNewerThanDate(Date fromDate) throws SystemException {
+		DynamicQuery dq = DynamicQueryFactoryUtil.forClass(Request.class);
+		Criterion modifiedDate = PropertyFactoryUtil.forName("modifiedDate").gt(fromDate);	
+		dq.add(modifiedDate);
+		return requestPersistence.findWithDynamicQuery(dq);
+	}
 }

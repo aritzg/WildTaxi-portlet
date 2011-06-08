@@ -203,4 +203,9 @@ public interface RequestLocalService {
 	public net.sareweb.wildtaxi.model.Request updateRequest(
 		net.sareweb.wildtaxi.model.Request request, boolean merge)
 		throws com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public java.util.List<net.sareweb.wildtaxi.model.Request> getRequestNewerThanDate(
+		java.util.Date fromDate)
+		throws com.liferay.portal.kernel.exception.SystemException;
 }

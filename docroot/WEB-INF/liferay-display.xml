@@ -4,5 +4,6 @@
 <display>
 	<category name="category.sample">
 		<portlet id="WildTaxi" />
+		<portlet id="my-requests-portlet"></portlet>
 	</category>
 </display>

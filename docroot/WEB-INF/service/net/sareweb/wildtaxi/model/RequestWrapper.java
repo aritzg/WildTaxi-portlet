@@ -181,7 +181,7 @@ public class RequestWrapper implements Request {
 		_request.setModifiedDate(modifiedDate);
 	}
 
-	public Request toEscapedModel() {
+	public net.sareweb.wildtaxi.model.Request toEscapedModel() {
 		return _request.toEscapedModel();
 	}
 
@@ -226,7 +226,7 @@ public class RequestWrapper implements Request {
 		return _request.clone();
 	}
 
-	public int compareTo(Request request) {
+	public int compareTo(net.sareweb.wildtaxi.model.Request request) {
 		return _request.compareTo(request);
 	}
 
