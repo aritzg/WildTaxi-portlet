@@ -414,6 +414,33 @@ public class RequestLocalServiceClp implements RequestLocalService {
 		return (java.util.List<net.sareweb.wildtaxi.model.Request>)ClpSerializer.translateOutput(returnObj);
 	}
 
+	public java.util.List<net.sareweb.wildtaxi.model.Request> getByUserId(
+		long userId) throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		MethodHandler methodHandler = new MethodHandler(_getByUserIdMethodKey14,
+				userId);
+
+		try {
+			returnObj = _classLoaderProxy.invoke(methodHandler);
+		}
+		catch (Throwable t) {
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.List<net.sareweb.wildtaxi.model.Request>)ClpSerializer.translateOutput(returnObj);
+	}
+
 	public ClassLoaderProxy getClassLoaderProxy() {
 		return _classLoaderProxy;
 	}
@@ -453,4 +480,6 @@ public class RequestLocalServiceClp implements RequestLocalService {
 			boolean.class);
 	private MethodKey _getRequestNewerThanDateMethodKey13 = new MethodKey(_classLoaderProxy.getClassName(),
 			"getRequestNewerThanDate", java.util.Date.class);
+	private MethodKey _getByUserIdMethodKey14 = new MethodKey(_classLoaderProxy.getClassName(),
+			"getByUserId", long.class);
 }

@@ -10,4 +10,22 @@
 		<property name="service" ref="net.sareweb.wildtaxi.service.RequestService" />
 	</bean>
 	<bean id="net.sareweb.wildtaxi.service.persistence.RequestPersistence" class="net.sareweb.wildtaxi.service.persistence.RequestPersistenceImpl" parent="basePersistence" />
+	<bean id="net.sareweb.wildtaxi.service.OfferLocalService" class="net.sareweb.wildtaxi.service.impl.OfferLocalServiceImpl" />
+	<bean id="net.sareweb.wildtaxi.service.OfferLocalServiceUtil" class="net.sareweb.wildtaxi.service.OfferLocalServiceUtil">
+		<property name="service" ref="net.sareweb.wildtaxi.service.OfferLocalService" />
+	</bean>
+	<bean id="net.sareweb.wildtaxi.service.OfferService" class="net.sareweb.wildtaxi.service.impl.OfferServiceImpl" />
+	<bean id="net.sareweb.wildtaxi.service.OfferServiceUtil" class="net.sareweb.wildtaxi.service.OfferServiceUtil">
+		<property name="service" ref="net.sareweb.wildtaxi.service.OfferService" />
+	</bean>
+	<bean id="net.sareweb.wildtaxi.service.persistence.OfferPersistence" class="net.sareweb.wildtaxi.service.persistence.OfferPersistenceImpl" parent="basePersistence" />
+	<bean id="net.sareweb.wildtaxi.service.MessageLocalService" class="net.sareweb.wildtaxi.service.impl.MessageLocalServiceImpl" />
+	<bean id="net.sareweb.wildtaxi.service.MessageLocalServiceUtil" class="net.sareweb.wildtaxi.service.MessageLocalServiceUtil">
+		<property name="service" ref="net.sareweb.wildtaxi.service.MessageLocalService" />
+	</bean>
+	<bean id="net.sareweb.wildtaxi.service.MessageService" class="net.sareweb.wildtaxi.service.impl.MessageServiceImpl" />
+	<bean id="net.sareweb.wildtaxi.service.MessageServiceUtil" class="net.sareweb.wildtaxi.service.MessageServiceUtil">
+		<property name="service" ref="net.sareweb.wildtaxi.service.MessageService" />
+	</bean>
+	<bean id="net.sareweb.wildtaxi.service.persistence.MessagePersistence" class="net.sareweb.wildtaxi.service.persistence.MessagePersistenceImpl" parent="basePersistence" />
 </beans>

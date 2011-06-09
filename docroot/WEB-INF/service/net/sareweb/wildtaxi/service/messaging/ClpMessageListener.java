@@ -20,6 +20,10 @@ import com.liferay.portal.kernel.messaging.Message;
 import com.liferay.portal.kernel.messaging.MessageListener;
 
 import net.sareweb.wildtaxi.service.ClpSerializer;
+import net.sareweb.wildtaxi.service.MessageLocalServiceUtil;
+import net.sareweb.wildtaxi.service.MessageServiceUtil;
+import net.sareweb.wildtaxi.service.OfferLocalServiceUtil;
+import net.sareweb.wildtaxi.service.OfferServiceUtil;
 import net.sareweb.wildtaxi.service.RequestLocalServiceUtil;
 import net.sareweb.wildtaxi.service.RequestServiceUtil;
 
@@ -47,6 +51,12 @@ public class ClpMessageListener implements MessageListener {
 			RequestLocalServiceUtil.clearService();
 
 			RequestServiceUtil.clearService();
+			OfferLocalServiceUtil.clearService();
+
+			OfferServiceUtil.clearService();
+			MessageLocalServiceUtil.clearService();
+
+			MessageServiceUtil.clearService();
 		}
 	}
 

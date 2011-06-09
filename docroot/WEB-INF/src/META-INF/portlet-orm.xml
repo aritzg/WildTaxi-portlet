@@ -38,8 +38,51 @@
 			<transient name="userUuid" />
 		</attributes>
 	</mapped-superclass>
+	<mapped-superclass class="net.sareweb.wildtaxi.model.impl.OfferModelImpl">
+		<attributes>
+			<id name="offerId" />
+			<basic name="uuid">
+				<column name="UUID_" />
+			</basic>
+			<basic name="requestId" />
+			<basic name="state" />
+			<basic name="agreementKey" />
+			<basic name="companyId" />
+			<basic name="userId" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<transient name="primaryKey" />
+			<transient name="userUuid" />
+		</attributes>
+	</mapped-superclass>
+	<mapped-superclass class="net.sareweb.wildtaxi.model.impl.MessageModelImpl">
+		<attributes>
+			<id name="messageId" />
+			<basic name="uuid">
+				<column name="UUID_" />
+			</basic>
+			<basic name="offerId" />
+			<basic name="message" />
+			<basic name="companyId" />
+			<basic name="userId" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<transient name="primaryKey" />
+			<transient name="userUuid" />
+		</attributes>
+	</mapped-superclass>
 	<entity class="net.sareweb.wildtaxi.model.impl.RequestImpl" name="Request">
 		<table name="wt_Request" />
+		<attributes />
+	</entity>
+	<entity class="net.sareweb.wildtaxi.model.impl.OfferImpl" name="Offer">
+		<table name="wt_Offer" />
+		<attributes />
+	</entity>
+	<entity class="net.sareweb.wildtaxi.model.impl.MessageImpl" name="Message">
+		<table name="wt_Message" />
 		<attributes />
 	</entity>
 </entity-mappings>

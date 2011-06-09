@@ -1,13 +1,13 @@
 package net.sareweb.wildtaxi.portlets.p001;
 
 import java.io.IOException;
-import java.util.List;
 
+import javax.portlet.ActionRequest;
+import javax.portlet.ActionResponse;
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
-import net.sareweb.wildtaxi.model.Request;
 import net.sareweb.wildtaxi.service.RequestLocalServiceUtil;
 
 import com.liferay.portal.kernel.exception.SystemException;
@@ -36,7 +36,7 @@ public class MyRequestsPortlet extends MVCPortlet {
 			}
 	
 			if(_ACTION_ADD.equals(action)){
-				//TODO
+				viewJSP = "/jsp/p001/new.jsp";
 			}
 		}
 		super.doView(request, response);
@@ -46,12 +46,18 @@ public class MyRequestsPortlet extends MVCPortlet {
 		try {
 			_log.debug("Obtaining requests for user " + themeDisplay.getUserId());
 
-			request.setAttribute("myRequests", RequestLocalServiceUtil.getRequests(-1, -1));
+			request.setAttribute("myRequests", RequestLocalServiceUtil.getByUserId(themeDisplay.getUserId()));
 			
 		} catch (SystemException e) {
 			_log.error("Error obtaining my requests");
 		}
 		viewJSP = "/jsp/p001/view.jsp";
+	}
+	
+	public void addRequest(ActionRequest request, ActionResponse response){
+		System.out.println("aaasdadadasd");
+		themeDisplay = (ThemeDisplay) request.getAttribute(WebKeys.THEME_DISPLAY);
+		_log.debug("Adding request for user " + themeDisplay.getUserId());
 	}
 	
 	

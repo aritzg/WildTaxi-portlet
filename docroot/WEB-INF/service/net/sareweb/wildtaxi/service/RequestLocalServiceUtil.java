@@ -230,6 +230,11 @@ public class RequestLocalServiceUtil {
 		return getService().getRequestNewerThanDate(fromDate);
 	}
 
+	public static java.util.List<net.sareweb.wildtaxi.model.Request> getByUserId(
+		long userId) throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getByUserId(userId);
+	}
+
 	public static void clearService() {
 		_service = null;
 	}

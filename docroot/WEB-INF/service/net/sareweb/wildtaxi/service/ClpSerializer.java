@@ -18,6 +18,8 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.model.BaseModel;
 
+import net.sareweb.wildtaxi.model.MessageClp;
+import net.sareweb.wildtaxi.model.OfferClp;
 import net.sareweb.wildtaxi.model.RequestClp;
 
 import java.lang.reflect.Method;
@@ -174,6 +176,163 @@ public class ClpSerializer {
 					Date value16 = oldCplModel.getModifiedDate();
 
 					method16.invoke(newModel, value16);
+
+					return newModel;
+				}
+				catch (Exception e) {
+					_log.error(e, e);
+				}
+			}
+			finally {
+				Thread.currentThread().setContextClassLoader(contextClassLoader);
+			}
+		}
+
+		if (oldModelClassName.equals(OfferClp.class.getName())) {
+			OfferClp oldCplModel = (OfferClp)oldModel;
+
+			ClassLoader contextClassLoader = Thread.currentThread()
+												   .getContextClassLoader();
+
+			try {
+				Thread.currentThread().setContextClassLoader(_classLoader);
+
+				try {
+					Class<?> newModelClass = Class.forName("net.sareweb.wildtaxi.model.impl.OfferImpl",
+							true, _classLoader);
+
+					Object newModel = newModelClass.newInstance();
+
+					Method method0 = newModelClass.getMethod("setUuid",
+							new Class[] { String.class });
+
+					String value0 = oldCplModel.getUuid();
+
+					method0.invoke(newModel, value0);
+
+					Method method1 = newModelClass.getMethod("setOfferId",
+							new Class[] { Long.TYPE });
+
+					Long value1 = new Long(oldCplModel.getOfferId());
+
+					method1.invoke(newModel, value1);
+
+					Method method2 = newModelClass.getMethod("setRequestId",
+							new Class[] { Long.TYPE });
+
+					Long value2 = new Long(oldCplModel.getRequestId());
+
+					method2.invoke(newModel, value2);
+
+					Method method3 = newModelClass.getMethod("setState",
+							new Class[] { String.class });
+
+					String value3 = oldCplModel.getState();
+
+					method3.invoke(newModel, value3);
+
+					Method method4 = newModelClass.getMethod("setAgreementKey",
+							new Class[] { String.class });
+
+					String value4 = oldCplModel.getAgreementKey();
+
+					method4.invoke(newModel, value4);
+
+					Method method5 = newModelClass.getMethod("setCompanyId",
+							new Class[] { Long.TYPE });
+
+					Long value5 = new Long(oldCplModel.getCompanyId());
+
+					method5.invoke(newModel, value5);
+
+					Method method6 = newModelClass.getMethod("setUserId",
+							new Class[] { Long.TYPE });
+
+					Long value6 = new Long(oldCplModel.getUserId());
+
+					method6.invoke(newModel, value6);
+
+					Method method7 = newModelClass.getMethod("setCreateDate",
+							new Class[] { Date.class });
+
+					Date value7 = oldCplModel.getCreateDate();
+
+					method7.invoke(newModel, value7);
+
+					return newModel;
+				}
+				catch (Exception e) {
+					_log.error(e, e);
+				}
+			}
+			finally {
+				Thread.currentThread().setContextClassLoader(contextClassLoader);
+			}
+		}
+
+		if (oldModelClassName.equals(MessageClp.class.getName())) {
+			MessageClp oldCplModel = (MessageClp)oldModel;
+
+			ClassLoader contextClassLoader = Thread.currentThread()
+												   .getContextClassLoader();
+
+			try {
+				Thread.currentThread().setContextClassLoader(_classLoader);
+
+				try {
+					Class<?> newModelClass = Class.forName("net.sareweb.wildtaxi.model.impl.MessageImpl",
+							true, _classLoader);
+
+					Object newModel = newModelClass.newInstance();
+
+					Method method0 = newModelClass.getMethod("setUuid",
+							new Class[] { String.class });
+
+					String value0 = oldCplModel.getUuid();
+
+					method0.invoke(newModel, value0);
+
+					Method method1 = newModelClass.getMethod("setMessageId",
+							new Class[] { Long.TYPE });
+
+					Long value1 = new Long(oldCplModel.getMessageId());
+
+					method1.invoke(newModel, value1);
+
+					Method method2 = newModelClass.getMethod("setOfferId",
+							new Class[] { Long.TYPE });
+
+					Long value2 = new Long(oldCplModel.getOfferId());
+
+					method2.invoke(newModel, value2);
+
+					Method method3 = newModelClass.getMethod("setMessage",
+							new Class[] { String.class });
+
+					String value3 = oldCplModel.getMessage();
+
+					method3.invoke(newModel, value3);
+
+					Method method4 = newModelClass.getMethod("setCompanyId",
+							new Class[] { Long.TYPE });
+
+					Long value4 = new Long(oldCplModel.getCompanyId());
+
+					method4.invoke(newModel, value4);
+
+					Method method5 = newModelClass.getMethod("setUserId",
+							new Class[] { Long.TYPE });
+
+					Long value5 = new Long(oldCplModel.getUserId());
+
+					method5.invoke(newModel, value5);
+
+					Method method6 = newModelClass.getMethod("setCreateDate",
+							new Class[] { Date.class });
+
+					Date value6 = oldCplModel.getCreateDate();
+
+					method6.invoke(newModel, value6);
 
 					return newModel;
 				}
@@ -345,6 +504,145 @@ public class ClpSerializer {
 							(Object[])null);
 
 					newModel.setModifiedDate(value16);
+
+					return newModel;
+				}
+				catch (Exception e) {
+					_log.error(e, e);
+				}
+			}
+			finally {
+				Thread.currentThread().setContextClassLoader(contextClassLoader);
+			}
+		}
+
+		if (oldModelClassName.equals(
+					"net.sareweb.wildtaxi.model.impl.OfferImpl")) {
+			ClassLoader contextClassLoader = Thread.currentThread()
+												   .getContextClassLoader();
+
+			try {
+				Thread.currentThread().setContextClassLoader(_classLoader);
+
+				try {
+					OfferClp newModel = new OfferClp();
+
+					Method method0 = oldModelClass.getMethod("getUuid");
+
+					String value0 = (String)method0.invoke(oldModel,
+							(Object[])null);
+
+					newModel.setUuid(value0);
+
+					Method method1 = oldModelClass.getMethod("getOfferId");
+
+					Long value1 = (Long)method1.invoke(oldModel, (Object[])null);
+
+					newModel.setOfferId(value1);
+
+					Method method2 = oldModelClass.getMethod("getRequestId");
+
+					Long value2 = (Long)method2.invoke(oldModel, (Object[])null);
+
+					newModel.setRequestId(value2);
+
+					Method method3 = oldModelClass.getMethod("getState");
+
+					String value3 = (String)method3.invoke(oldModel,
+							(Object[])null);
+
+					newModel.setState(value3);
+
+					Method method4 = oldModelClass.getMethod("getAgreementKey");
+
+					String value4 = (String)method4.invoke(oldModel,
+							(Object[])null);
+
+					newModel.setAgreementKey(value4);
+
+					Method method5 = oldModelClass.getMethod("getCompanyId");
+
+					Long value5 = (Long)method5.invoke(oldModel, (Object[])null);
+
+					newModel.setCompanyId(value5);
+
+					Method method6 = oldModelClass.getMethod("getUserId");
+
+					Long value6 = (Long)method6.invoke(oldModel, (Object[])null);
+
+					newModel.setUserId(value6);
+
+					Method method7 = oldModelClass.getMethod("getCreateDate");
+
+					Date value7 = (Date)method7.invoke(oldModel, (Object[])null);
+
+					newModel.setCreateDate(value7);
+
+					return newModel;
+				}
+				catch (Exception e) {
+					_log.error(e, e);
+				}
+			}
+			finally {
+				Thread.currentThread().setContextClassLoader(contextClassLoader);
+			}
+		}
+
+		if (oldModelClassName.equals(
+					"net.sareweb.wildtaxi.model.impl.MessageImpl")) {
+			ClassLoader contextClassLoader = Thread.currentThread()
+												   .getContextClassLoader();
+
+			try {
+				Thread.currentThread().setContextClassLoader(_classLoader);
+
+				try {
+					MessageClp newModel = new MessageClp();
+
+					Method method0 = oldModelClass.getMethod("getUuid");
+
+					String value0 = (String)method0.invoke(oldModel,
+							(Object[])null);
+
+					newModel.setUuid(value0);
+
+					Method method1 = oldModelClass.getMethod("getMessageId");
+
+					Long value1 = (Long)method1.invoke(oldModel, (Object[])null);
+
+					newModel.setMessageId(value1);
+
+					Method method2 = oldModelClass.getMethod("getOfferId");
+
+					Long value2 = (Long)method2.invoke(oldModel, (Object[])null);
+
+					newModel.setOfferId(value2);
+
+					Method method3 = oldModelClass.getMethod("getMessage");
+
+					String value3 = (String)method3.invoke(oldModel,
+							(Object[])null);
+
+					newModel.setMessage(value3);
+
+					Method method4 = oldModelClass.getMethod("getCompanyId");
+
+					Long value4 = (Long)method4.invoke(oldModel, (Object[])null);
+
+					newModel.setCompanyId(value4);
+
+					Method method5 = oldModelClass.getMethod("getUserId");
+
+					Long value5 = (Long)method5.invoke(oldModel, (Object[])null);
+
+					newModel.setUserId(value5);
+
+					Method method6 = oldModelClass.getMethod("getCreateDate");
+
+					Date value6 = (Date)method6.invoke(oldModel, (Object[])null);
+
+					newModel.setCreateDate(value6);
 
 					return newModel;
 				}

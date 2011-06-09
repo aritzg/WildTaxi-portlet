@@ -20,4 +20,23 @@
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
 	</model>
+	<model name="net.sareweb.wildtaxi.model.Offer">
+		<field name="uuid" type="String" />
+		<field name="offerId" type="long" />
+		<field name="requestId" type="long" />
+		<field name="state" type="String" />
+		<field name="agreementKey" type="String" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="createDate" type="Date" />
+	</model>
+	<model name="net.sareweb.wildtaxi.model.Message">
+		<field name="uuid" type="String" />
+		<field name="messageId" type="long" />
+		<field name="offerId" type="long" />
+		<field name="message" type="String" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="createDate" type="Date" />
+	</model>
 </model-hints>

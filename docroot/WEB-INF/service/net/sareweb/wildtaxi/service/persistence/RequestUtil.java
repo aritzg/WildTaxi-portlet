@@ -310,6 +310,125 @@ public class RequestUtil {
 	}
 
 	/**
+	* Finds all the requests where userId = &#63;.
+	*
+	* @param userId the user id to search with
+	* @return the matching requests
+	* @throws SystemException if a system exception occurred
+	*/
+	public static java.util.List<net.sareweb.wildtaxi.model.Request> findByUserId(
+		long userId) throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().findByUserId(userId);
+	}
+
+	/**
+	* Finds a range of all the requests where userId = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	* </p>
+	*
+	* @param userId the user id to search with
+	* @param start the lower bound of the range of requests to return
+	* @param end the upper bound of the range of requests to return (not inclusive)
+	* @return the range of matching requests
+	* @throws SystemException if a system exception occurred
+	*/
+	public static java.util.List<net.sareweb.wildtaxi.model.Request> findByUserId(
+		long userId, int start, int end)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().findByUserId(userId, start, end);
+	}
+
+	/**
+	* Finds an ordered range of all the requests where userId = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	* </p>
+	*
+	* @param userId the user id to search with
+	* @param start the lower bound of the range of requests to return
+	* @param end the upper bound of the range of requests to return (not inclusive)
+	* @param orderByComparator the comparator to order the results by
+	* @return the ordered range of matching requests
+	* @throws SystemException if a system exception occurred
+	*/
+	public static java.util.List<net.sareweb.wildtaxi.model.Request> findByUserId(
+		long userId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence()
+				   .findByUserId(userId, start, end, orderByComparator);
+	}
+
+	/**
+	* Finds the first request in the ordered set where userId = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	* </p>
+	*
+	* @param userId the user id to search with
+	* @param orderByComparator the comparator to order the set by
+	* @return the first matching request
+	* @throws net.sareweb.wildtaxi.NoSuchRequestException if a matching request could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static net.sareweb.wildtaxi.model.Request findByUserId_First(
+		long userId,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			net.sareweb.wildtaxi.NoSuchRequestException {
+		return getPersistence().findByUserId_First(userId, orderByComparator);
+	}
+
+	/**
+	* Finds the last request in the ordered set where userId = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	* </p>
+	*
+	* @param userId the user id to search with
+	* @param orderByComparator the comparator to order the set by
+	* @return the last matching request
+	* @throws net.sareweb.wildtaxi.NoSuchRequestException if a matching request could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static net.sareweb.wildtaxi.model.Request findByUserId_Last(
+		long userId,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			net.sareweb.wildtaxi.NoSuchRequestException {
+		return getPersistence().findByUserId_Last(userId, orderByComparator);
+	}
+
+	/**
+	* Finds the requests before and after the current request in the ordered set where userId = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	* </p>
+	*
+	* @param requestId the primary key of the current request
+	* @param userId the user id to search with
+	* @param orderByComparator the comparator to order the set by
+	* @return the previous, current, and next request
+	* @throws net.sareweb.wildtaxi.NoSuchRequestException if a request with the primary key could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static net.sareweb.wildtaxi.model.Request[] findByUserId_PrevAndNext(
+		long requestId, long userId,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			net.sareweb.wildtaxi.NoSuchRequestException {
+		return getPersistence()
+				   .findByUserId_PrevAndNext(requestId, userId,
+			orderByComparator);
+	}
+
+	/**
 	* Finds all the requests.
 	*
 	* @return the requests
@@ -370,6 +489,17 @@ public class RequestUtil {
 	}
 
 	/**
+	* Removes all the requests where userId = &#63; from the database.
+	*
+	* @param userId the user id to search with
+	* @throws SystemException if a system exception occurred
+	*/
+	public static void removeByUserId(long userId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getPersistence().removeByUserId(userId);
+	}
+
+	/**
 	* Removes all the requests from the database.
 	*
 	* @throws SystemException if a system exception occurred
@@ -389,6 +519,18 @@ public class RequestUtil {
 	public static int countByUuid(java.lang.String uuid)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getPersistence().countByUuid(uuid);
+	}
+
+	/**
+	* Counts all the requests where userId = &#63;.
+	*
+	* @param userId the user id to search with
+	* @return the number of matching requests
+	* @throws SystemException if a system exception occurred
+	*/
+	public static int countByUserId(long userId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().countByUserId(userId);
 	}
 
 	/**

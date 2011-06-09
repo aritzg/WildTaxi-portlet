@@ -28,8 +28,14 @@ import com.liferay.portal.service.base.PrincipalBean;
 import com.liferay.portal.service.persistence.ResourcePersistence;
 import com.liferay.portal.service.persistence.UserPersistence;
 
+import net.sareweb.wildtaxi.service.MessageLocalService;
+import net.sareweb.wildtaxi.service.MessageService;
+import net.sareweb.wildtaxi.service.OfferLocalService;
+import net.sareweb.wildtaxi.service.OfferService;
 import net.sareweb.wildtaxi.service.RequestLocalService;
 import net.sareweb.wildtaxi.service.RequestService;
+import net.sareweb.wildtaxi.service.persistence.MessagePersistence;
+import net.sareweb.wildtaxi.service.persistence.OfferPersistence;
 import net.sareweb.wildtaxi.service.persistence.RequestPersistence;
 
 import javax.sql.DataSource;
@@ -104,6 +110,114 @@ public abstract class RequestServiceBaseImpl extends PrincipalBean
 	 */
 	public void setRequestPersistence(RequestPersistence requestPersistence) {
 		this.requestPersistence = requestPersistence;
+	}
+
+	/**
+	 * Gets the offer local service.
+	 *
+	 * @return the offer local service
+	 */
+	public OfferLocalService getOfferLocalService() {
+		return offerLocalService;
+	}
+
+	/**
+	 * Sets the offer local service.
+	 *
+	 * @param offerLocalService the offer local service
+	 */
+	public void setOfferLocalService(OfferLocalService offerLocalService) {
+		this.offerLocalService = offerLocalService;
+	}
+
+	/**
+	 * Gets the offer remote service.
+	 *
+	 * @return the offer remote service
+	 */
+	public OfferService getOfferService() {
+		return offerService;
+	}
+
+	/**
+	 * Sets the offer remote service.
+	 *
+	 * @param offerService the offer remote service
+	 */
+	public void setOfferService(OfferService offerService) {
+		this.offerService = offerService;
+	}
+
+	/**
+	 * Gets the offer persistence.
+	 *
+	 * @return the offer persistence
+	 */
+	public OfferPersistence getOfferPersistence() {
+		return offerPersistence;
+	}
+
+	/**
+	 * Sets the offer persistence.
+	 *
+	 * @param offerPersistence the offer persistence
+	 */
+	public void setOfferPersistence(OfferPersistence offerPersistence) {
+		this.offerPersistence = offerPersistence;
+	}
+
+	/**
+	 * Gets the message local service.
+	 *
+	 * @return the message local service
+	 */
+	public MessageLocalService getMessageLocalService() {
+		return messageLocalService;
+	}
+
+	/**
+	 * Sets the message local service.
+	 *
+	 * @param messageLocalService the message local service
+	 */
+	public void setMessageLocalService(MessageLocalService messageLocalService) {
+		this.messageLocalService = messageLocalService;
+	}
+
+	/**
+	 * Gets the message remote service.
+	 *
+	 * @return the message remote service
+	 */
+	public MessageService getMessageService() {
+		return messageService;
+	}
+
+	/**
+	 * Sets the message remote service.
+	 *
+	 * @param messageService the message remote service
+	 */
+	public void setMessageService(MessageService messageService) {
+		this.messageService = messageService;
+	}
+
+	/**
+	 * Gets the message persistence.
+	 *
+	 * @return the message persistence
+	 */
+	public MessagePersistence getMessagePersistence() {
+		return messagePersistence;
+	}
+
+	/**
+	 * Sets the message persistence.
+	 *
+	 * @param messagePersistence the message persistence
+	 */
+	public void setMessagePersistence(MessagePersistence messagePersistence) {
+		this.messagePersistence = messagePersistence;
 	}
 
 	/**
@@ -258,6 +372,18 @@ public abstract class RequestServiceBaseImpl extends PrincipalBean
 	protected RequestService requestService;
 	@BeanReference(type = RequestPersistence.class)
 	protected RequestPersistence requestPersistence;
+	@BeanReference(type = OfferLocalService.class)
+	protected OfferLocalService offerLocalService;
+	@BeanReference(type = OfferService.class)
+	protected OfferService offerService;
+	@BeanReference(type = OfferPersistence.class)
+	protected OfferPersistence offerPersistence;
+	@BeanReference(type = MessageLocalService.class)
+	protected MessageLocalService messageLocalService;
+	@BeanReference(type = MessageService.class)
+	protected MessageService messageService;
+	@BeanReference(type = MessagePersistence.class)
+	protected MessagePersistence messagePersistence;
 	@BeanReference(type = CounterLocalService.class)
 	protected CounterLocalService counterLocalService;
 	@BeanReference(type = ResourceLocalService.class)

@@ -28,7 +28,34 @@
 		<column name="userId" type="long" />
 		<column name="createDate" type="Date" />
 		<column name="modifiedDate" type="Date" />
+		
+		<finder return-type="Collection" name="UserId">
+			<finder-column name="userId"/>
+		</finder>
 
+	</entity>
+	
+	<entity name="Offer" uuid="true" local-service="true" remote-service="true">
+		<column name="offerId" type="long" primary="true" />
+		<column name="requestId" type="long" />
+		<column name="state" type="String" />
+		<column name="agreementKey" type="String" />
+		
+		<!-- Audit fields -->
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" /> <!-- Offering user -->
+		<column name="createDate" type="Date" />
+	</entity>
+
+	<entity name="Message" uuid="true" local-service="true" remote-service="true">
+		<column name="messageId" type="long" primary="true" />
+		<column name="offerId" type="long" />
+		<column name="message" type="String" />
+		
+		<!-- Audit fields -->
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="createDate" type="Date" />
 	</entity>
 
 

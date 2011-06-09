@@ -3,6 +3,8 @@
 
 <hibernate-mapping default-lazy="false" auto-import="false">
 	<import class="net.sareweb.wildtaxi.model.Request" />
+	<import class="net.sareweb.wildtaxi.model.Offer" />
+	<import class="net.sareweb.wildtaxi.model.Message" />
 	<class name="net.sareweb.wildtaxi.model.impl.RequestImpl" table="wt_Request">
 		<cache usage="read-write" />
 		<id name="requestId" type="long">
@@ -24,5 +26,30 @@
 		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="createDate" type="org.hibernate.type.TimestampType" />
 		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+	</class>
+	<class name="net.sareweb.wildtaxi.model.impl.OfferImpl" table="wt_Offer">
+		<cache usage="read-write" />
+		<id name="offerId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="uuid" column="uuid_" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="requestId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="state" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="agreementKey" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+	</class>
+	<class name="net.sareweb.wildtaxi.model.impl.MessageImpl" table="wt_Message">
+		<cache usage="read-write" />
+		<id name="messageId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="uuid" column="uuid_" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="offerId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="message" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
 	</class>
 </hibernate-mapping>

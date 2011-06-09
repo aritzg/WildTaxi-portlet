@@ -2,7 +2,14 @@
 <%
 List<Request> myRequests = (List<Request>)request.getAttribute("myRequests");
 %>
-
+<liferay-portlet:renderURL var="addRequest">
+	<liferay-portlet:param name="action" value="<%=MyRequestsPortlet._ACTION_ADD%>"></liferay-portlet:param>
+</liferay-portlet:renderURL>
+<div class="controls">
+	<aui:button-row>
+		<aui:button onClick="<%=addRequest%>" value="add"/>
+	</aui:button-row>
+</div>
 <div class="myRequests">
 	<div class="request-list">
 		<liferay-ui:search-container delta='<%= new Integer(prefs.getValue("rowsPerPage", "10"))%>'>

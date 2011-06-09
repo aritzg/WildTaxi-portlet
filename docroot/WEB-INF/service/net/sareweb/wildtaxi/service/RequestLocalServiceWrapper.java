@@ -222,6 +222,11 @@ public class RequestLocalServiceWrapper implements RequestLocalService {
 		return _requestLocalService.getRequestNewerThanDate(fromDate);
 	}
 
+	public java.util.List<net.sareweb.wildtaxi.model.Request> getByUserId(
+		long userId) throws com.liferay.portal.kernel.exception.SystemException {
+		return _requestLocalService.getByUserId(userId);
+	}
+
 	public RequestLocalService getWrappedRequestLocalService() {
 		return _requestLocalService;
 	}

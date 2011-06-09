@@ -208,4 +208,8 @@ public interface RequestLocalService {
 	public java.util.List<net.sareweb.wildtaxi.model.Request> getRequestNewerThanDate(
 		java.util.Date fromDate)
 		throws com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public java.util.List<net.sareweb.wildtaxi.model.Request> getByUserId(
+		long userId) throws com.liferay.portal.kernel.exception.SystemException;
 }

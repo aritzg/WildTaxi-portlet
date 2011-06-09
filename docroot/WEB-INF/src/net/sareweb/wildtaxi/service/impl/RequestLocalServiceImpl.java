@@ -52,4 +52,8 @@ public class RequestLocalServiceImpl extends RequestLocalServiceBaseImpl {
 		dq.add(modifiedDate);
 		return requestPersistence.findWithDynamicQuery(dq);
 	}
+	
+	public List<Request> getByUserId(long userId) throws SystemException {
+		return requestPersistence.findByUserId(userId);
+	}
 }
