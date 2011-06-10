@@ -8,8 +8,11 @@ import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
+import net.sareweb.wildtaxi.model.Request;
 import net.sareweb.wildtaxi.service.RequestLocalServiceUtil;
+import net.sareweb.wildtaxi.util.RequestUtil;
 
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -54,15 +57,45 @@ public class MyRequestsPortlet extends MVCPortlet {
 		viewJSP = "/jsp/p001/view.jsp";
 	}
 	
-	public void addRequest(ActionRequest request, ActionResponse response){
-		System.out.println("aaasdadadasd");
+	public void addRequest(ActionRequest request, ActionResponse response) throws SystemException{
+		
 		themeDisplay = (ThemeDisplay) request.getAttribute(WebKeys.THEME_DISPLAY);
 		_log.debug("Adding request for user " + themeDisplay.getUserId());
+		Request r = RequestUtil.getFromRequest(request) ;
+		RequestLocalServiceUtil.addRequest(r);
 	}
+	
+	
+	@Override
+	public void serveResource(javax.portlet.ResourceRequest resourceRequest, javax.portlet.ResourceResponse resourceResponse) throws IOException ,PortletException {
+		String resType=ParamUtil.getString(resourceRequest, "resType", "");
+		_log.debug("Resouce requested: type = " + resType);
+
+		if(resType.equals(_RES_TYPE_REQUEST_DETAILS)){
+			serveResourceRequestDetail(resourceRequest, resourceResponse);
+		}
+		super.serveResource(resourceRequest, resourceResponse);
+	};
+	
+	private void serveResourceRequestDetail(javax.portlet.ResourceRequest resourceRequest, javax.portlet.ResourceResponse resourceResponse) throws IOException ,PortletException {
+		_log.debug("\tServing requets details");
+		Long requestId = ParamUtil.getLong(resourceRequest, "requestId");
+		try {
+			Request request = RequestLocalServiceUtil.getRequest(requestId);
+			resourceRequest.setAttribute("myRequest", request);
+		} catch (Exception e) {
+			_log.error("No request found for " + requestId, e);
+			return;
+		}
+	}
+		
 	
 	
 	public static final String _ACTION_LIST = 	"LIST";
 	public static final String _ACTION_ADD = 	"ADD";
+	
+	public static final String _RES_TYPE_REQUEST_DETAILS="requests";
+	
 	
 	private static Log _log = LogFactoryUtil.getLog(MyRequestsPortlet.class);
 }

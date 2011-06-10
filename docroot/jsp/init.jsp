@@ -11,7 +11,10 @@
 <%@page import="java.util.List"%>
 
 <%@page import="net.sareweb.wildtaxi.model.Request"%>
+<%@page import="net.sareweb.wildtaxi.portlets.p000.ViewRequestsPortlet"%>
 <%@page import="net.sareweb.wildtaxi.portlets.p001.MyRequestsPortlet"%>
+
+
 
 <liferay-theme:defineObjects />
 

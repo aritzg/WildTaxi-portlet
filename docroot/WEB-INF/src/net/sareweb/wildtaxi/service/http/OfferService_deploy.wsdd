@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+	<service name="Plugin_wt_OfferService" provider="java:RPC" style="rpc" use="encoded">
+		<parameter name="allowedMethods" value="*" />
+		<parameter name="className" value="net.sareweb.wildtaxi.service.http.OfferServiceSoap" />
+		<parameter name="typeMappingVersion" value="1.2" />
+		<parameter name="wsdlPortType" value="OfferServiceSoap" />
+		<parameter name="wsdlServiceElement" value="OfferServiceSoapService" />
+		<parameter name="wsdlServicePort" value="Plugin_wt_OfferService" />
+		<parameter name="wsdlTargetNamespace" value="urn:http.service.wildtaxi.sareweb.net" />
+	</service>
+</deployment>
