@@ -4,11 +4,15 @@ var millsDelay = 5000;
 var lastTime;
 var servResourceUrl;
 
+var requests=new Array(); //Array to store requests
+
 
 function temporizeRequests(){
+	
 	AUI().use('aui-io-request, aui-delayed-task', function(A){
 		delayed = new A.DelayedTask(getLastRequests);
 		delayed.delay(millsDelay);
+		getLastRequests();
 	});
 }
 
@@ -24,12 +28,81 @@ function getLastRequests(){
 		     		YUI().use("json", function (Y) {
 						data = Y.JSON.parse(items);	 
 					});
+
 					for (var i = 0; i < data.list.length; i++) {
-                 		lastTime=data.list[i].modifiedDate.time;
+                 		if(i == 0){//Store latest request time
+                 			lastTime=data.list[i].modifiedDate.time;
+                 		}
+                 		var requestId = data.list[i].requestId;
+                 		var name = data.list[i].name;
+                 		var fromLat = data.list[i].fromLat;
+                 		var fromLng = data.list[i].fromLng;
+                 		var fromAddress = data.list[i].fromAddress;	
+                 		var toLat = data.list[i].toLat;
+                 		var toLng = data.list[i].toLng;
+                 		var toAddress = data.list[i].toAddress;
+                 		var distance = data.list[i].distance;
+                 		var beginDate = data.list[i].beginDate;
+                 		var duration = data.list[i].duration;
+                 		var userId = data.list[i].userId;
+                 		r = new Request(requestId, name, fromLat, fromLng, fromAddress, toLat, toLng, toAddress, distance, beginDate, duration, userId);
+                 		requests[requests.length]=r;
+                 		traceRouteInMap(r);
                		}
 		   		}
 		   	}
 		});		
 	});
 	delayed.delay(millsDelay);
+}
+
+/*GOOGLE MAPS*/
+
+var geocoder;
+var dirService;
+//var directionsDisplay;
+
+var canvas;
+var map;
+
+var defaultPoint =  new google.maps.LatLng(43.313188, -1.983719);
+
+function initWildMap(mapaCanvas){
+
+	geocoder = new google.maps.Geocoder();
+	dirService = new google.maps.DirectionsService();
+	//directionsDisplay = new google.maps.DirectionsRenderer();
+
+	canvas=mapaCanvas;
+	
+	var myOptions = {
+			zoom: 8,
+			center: defaultPoint,
+			mapTypeId: google.maps.MapTypeId.ROADMAP 
+	};
+	
+	map = new google.maps.Map(canvas,myOptions);
+	
+}
+function traceRouteInMap(wtRequest){
+	point = new google.maps.LatLng((fromLat+toLat)/2.0, (fromLng + toLng)/2.0);
+
+	fromPoint = new google.maps.LatLng(wtRequest.fromLat,wtRequest.fromLng);
+	toPoint = new google.maps.LatLng(wtRequest.toLat,wtRequest.toLng);
+	wtRequest.directionsDisplay = new google.maps.DirectionsRenderer();
+	
+	wtRequest.directionsDisplay.setMap(map);
+	var request = {
+		origin:fromPoint,
+		destination:toPoint,
+		travelMode: google.maps.DirectionsTravelMode.DRIVING
+	};
+	
+	dirService.route(request,
+			function(directionsResult, directionsStatus){
+				if (directionsStatus == google.maps.DirectionsStatus.OK) {
+					wtRequest.directionsDisplay.setDirections(directionsResult);	
+				}
+			}
+		);
 }

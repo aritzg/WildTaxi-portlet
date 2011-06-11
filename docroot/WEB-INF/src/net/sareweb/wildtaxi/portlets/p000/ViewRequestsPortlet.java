@@ -25,16 +25,7 @@ public class ViewRequestsPortlet extends MVCPortlet {
 	@Override
 	public void doView(RenderRequest renderRequest,
 			RenderResponse renderResponse) throws IOException, PortletException {
-		List<Request> requests= new ArrayList<Request>();
-		try {
-			
-			requests = RequestLocalServiceUtil.getRequestNewerThanDate(new Date());
-			_log.debug(requests.size() + " request read.");
-		} catch (SystemException e) {
-			_log.error("Error getting requests!!", e);
-		}
-		renderRequest.setAttribute("requests", requests);
-		renderRequest.setAttribute("loadTime", new Date());
+		
 		super.doView(renderRequest, renderResponse);
 	}
 	

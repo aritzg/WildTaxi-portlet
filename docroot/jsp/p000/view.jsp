@@ -1,17 +1,14 @@
 <%@include file="/jsp/init.jsp"%>
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 
-<%
-List<Request> requests = (List<Request>)request.getAttribute("requests");
-Date loadTime = (Date)request.getAttribute("loadTime");
-%>
+<div class="wild-map" id="map_canvas" style="width:600px; height:400px;">
 
-<%=loadTime.getTime()%>
-
+</div>
 
 <portlet:resourceURL var="serveRes" />
 <aui:script>
-lastTime=<%=loadTime.getTime()%>;
+lastTime=0;
 servResourceUrl = '<%=serveRes.toString()%>';
 temporizeRequests();
+initWildMap(document.getElementById('map_canvas'));
 </aui:script>

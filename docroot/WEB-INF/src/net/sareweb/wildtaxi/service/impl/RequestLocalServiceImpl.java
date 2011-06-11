@@ -25,6 +25,7 @@ import com.liferay.portal.kernel.exception.SystemException;
 
 import net.sareweb.wildtaxi.model.Request;
 import net.sareweb.wildtaxi.service.base.RequestLocalServiceBaseImpl;
+import net.sareweb.wildtaxi.util.comparator.RequestBeginDateComparator;
 
 /**
  * The implementation of the request local service.
@@ -48,9 +49,9 @@ import net.sareweb.wildtaxi.service.base.RequestLocalServiceBaseImpl;
 public class RequestLocalServiceImpl extends RequestLocalServiceBaseImpl {
 	public List<Request> getRequestNewerThanDate(Date fromDate) throws SystemException {
 		DynamicQuery dq = DynamicQueryFactoryUtil.forClass(Request.class);
-		Criterion modifiedDate = PropertyFactoryUtil.forName("modifiedDate").gt(fromDate);	
+		Criterion modifiedDate = PropertyFactoryUtil.forName("beginDate").gt(fromDate);	
 		dq.add(modifiedDate);
-		return requestPersistence.findWithDynamicQuery(dq);
+		return requestPersistence.findWithDynamicQuery(dq,0,10,new RequestBeginDateComparator());
 	}
 	
 	public List<Request> getByUserId(long userId) throws SystemException {

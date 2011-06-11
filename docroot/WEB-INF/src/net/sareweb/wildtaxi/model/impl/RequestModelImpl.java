@@ -16,6 +16,7 @@ package net.sareweb.wildtaxi.model.impl;
 
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.util.DateUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
@@ -81,6 +82,8 @@ public class RequestModelImpl extends BaseModelImpl<Request>
 		};
 	public static final String TABLE_SQL_CREATE = "create table wt_Request (uuid_ VARCHAR(75) null,requestId LONG not null primary key,name VARCHAR(75) null,fromLat DOUBLE,fromLng DOUBLE,fromAddress VARCHAR(75) null,toLat DOUBLE,toLng DOUBLE,toAddress VARCHAR(75) null,distance LONG,beginDate DATE null,duration INTEGER,state VARCHAR(75) null,companyId LONG,userId LONG,createDate DATE null,modifiedDate DATE null)";
 	public static final String TABLE_SQL_DROP = "drop table wt_Request";
+	public static final String ORDER_BY_JPQL = " ORDER BY request.beginDate DESC";
+	public static final String ORDER_BY_SQL = " ORDER BY wt_Request.beginDate DESC";
 	public static final String DATA_SOURCE = "liferayDataSource";
 	public static final String SESSION_FACTORY = "liferaySessionFactory";
 	public static final String TX_MANAGER = "liferayTransactionManager";
@@ -388,17 +391,17 @@ public class RequestModelImpl extends BaseModelImpl<Request>
 	}
 
 	public int compareTo(Request request) {
-		long pk = request.getPrimaryKey();
+		int value = 0;
 
-		if (getPrimaryKey() < pk) {
-			return -1;
+		value = DateUtil.compareTo(getBeginDate(), request.getBeginDate());
+
+		value = value * -1;
+
+		if (value != 0) {
+			return value;
 		}
-		else if (getPrimaryKey() > pk) {
-			return 1;
-		}
-		else {
-			return 0;
-		}
+
+		return 0;
 	}
 
 	public boolean equals(Object obj) {

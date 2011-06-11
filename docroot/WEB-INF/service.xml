@@ -29,6 +29,10 @@
 		<column name="createDate" type="Date" />
 		<column name="modifiedDate" type="Date" />
 		
+		<order by="desc">
+			<order-column name="beginDate"></order-column>
+		</order>
+		
 		<finder return-type="Collection" name="UserId">
 			<finder-column name="userId"/>
 		</finder>

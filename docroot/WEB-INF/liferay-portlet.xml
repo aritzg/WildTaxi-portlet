@@ -9,6 +9,7 @@
 		<header-portlet-css>/css/main.css</header-portlet-css>
 		<footer-portlet-javascript>/js/javascript.js</footer-portlet-javascript>
 		<footer-portlet-javascript>/js/p000/maps.js</footer-portlet-javascript>
+		<footer-portlet-javascript>/js/jsRequest.js</footer-portlet-javascript>
 		<css-class-wrapper>WildTaxi-portlet</css-class-wrapper>
 	</portlet>
 	<portlet>
