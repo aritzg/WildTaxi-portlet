@@ -65,6 +65,13 @@ public class MyRequestsPortlet extends MVCPortlet {
 		RequestLocalServiceUtil.addRequest(r);
 	}
 	
+	public void removeRequest(ActionRequest request, ActionResponse response) throws SystemException, PortalException{
+		long requestId = ParamUtil.getLong(request, "requestId", 0);
+		if(requestId==0)return;
+		RequestLocalServiceUtil.deleteRequest(requestId);
+		//TODO:Handle dependencies
+	}
+	
 	
 	@Override
 	public void serveResource(javax.portlet.ResourceRequest resourceRequest, javax.portlet.ResourceResponse resourceResponse) throws IOException ,PortletException {

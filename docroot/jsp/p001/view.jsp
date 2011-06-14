@@ -30,6 +30,13 @@ List<Request> myRequests = (List<Request>)request.getAttribute("myRequests");
 					</liferay-portlet:resourceURL>
 					<aui:a href='<%="javascript:refreshElementWithServedResource(\'request-detail\', \'" + requestDetail + "\')"%>'><%=myRequest.getName() %></aui:a>
 				</liferay-ui:search-container-column-text>
+				
+				<liferay-ui:search-container-column-text>
+					<liferay-portlet:actionURL name="removeRequest" var="removeRequestURL">
+						<liferay-portlet:param name="requestId" value="<%=String.valueOf(myRequest.getRequestId())%>"/>
+					</liferay-portlet:actionURL>
+					<liferay-ui:icon-delete url="<%=removeRequestURL%>"></liferay-ui:icon-delete>
+				</liferay-ui:search-container-column-text>
 
 			</liferay-ui:search-container-row>
 			
