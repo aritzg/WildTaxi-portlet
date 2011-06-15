@@ -92,7 +92,7 @@ function traceRouteInMap(wtRequest){
 
 	fromPoint = new google.maps.LatLng(wtRequest.fromLat,wtRequest.fromLng);
 	toPoint = new google.maps.LatLng(wtRequest.toLat,wtRequest.toLng);
-	wtRequest.directionsDisplay = new google.maps.DirectionsRenderer();
+	wtRequest.directionsDisplay = new google.maps.DirectionsRenderer({markerOptions:{visible:false}});
 	
 	wtRequest.directionsDisplay.setMap(map);
 	var request = {
@@ -136,12 +136,7 @@ function addInfoWindow(wtRequest){
 }
 
 function fullfillInfoWindow(infoURL, infowindow){
-	//alert(infoURL);
 	AUI().use('aui-io-request', function(A){
-		//var node =A.Node.create('<div/>');
-		//node.plug(A.Plugin.IO, { uri: infoURL, method: 'GET', showLoading:false });
-		//infowindow.setContent(node);
-		//alert(node.text());
 		A.io.request(infoURL, {
 						on: {  
 							success: function() {
@@ -149,8 +144,5 @@ function fullfillInfoWindow(infoURL, infowindow){
 										}    
 						}
 		});
-							
-		
-		
 	});
 }
