@@ -5,10 +5,12 @@
 
 </div>
 
-<portlet:resourceURL var="serveRes" />
+<portlet:resourceURL var="getRequests" />
+<portlet:resourceURL var="getInfoWindow" >
+	<portlet:param name="jspPage" value="/jsp/mapInfoWindow.jsp"></portlet:param>
+</portlet:resourceURL>
 <aui:script>
 lastTime=0;
-servResourceUrl = '<%=serveRes.toString()%>';
-temporizeRequests();
-initWildMap(document.getElementById('map_canvas'));
+temporizeRequests('<%=getRequests.toString()%>');
+initWildMap(document.getElementById('map_canvas'),'<%=getInfoWindow.toString()%>');
 </aui:script>

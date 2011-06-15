@@ -2,13 +2,14 @@ var delayed;
 var millsDelay = 5000;
 
 var lastTime;
-var servResourceUrl;
+
 
 var requests=new Array(); //Array to store requests
+var requestsURL =''; //MUST be initialized with Liferay resource request URL
+var infoWindowURL ='';
 
-
-function temporizeRequests(){
-	
+function temporizeRequests(resURL){
+	requestsURL = resURL;
 	AUI().use('aui-io-request, aui-delayed-task', function(A){
 		delayed = new A.DelayedTask(getLastRequests);
 		delayed.delay(millsDelay);
@@ -19,7 +20,7 @@ function temporizeRequests(){
 function getLastRequests(){
 	AUI().use('aui-io-request', function(A){	
 		//get requests
-  		A.io.request(servResourceUrl + '&resType=requests&lastTime=' + lastTime , {
+  		A.io.request(requestsURL + '&resType=requests&lastTime=' + lastTime , {
 	  		on: {
 		   		success: function() {
 		   			//TODO:Pintar en el mapa las request obtenidas
@@ -67,8 +68,10 @@ var map;
 
 var defaultPoint =  new google.maps.LatLng(43.313188, -1.983719);
 
-function initWildMap(mapaCanvas){
+function initWildMap(mapaCanvas, resURL){
 
+	infoWindowURL = resURL;
+	
 	geocoder = new google.maps.Geocoder();
 	dirService = new google.maps.DirectionsService();
 	//directionsDisplay = new google.maps.DirectionsRenderer();
@@ -105,4 +108,49 @@ function traceRouteInMap(wtRequest){
 				}
 			}
 		);
+	addInfoWindow(wtRequest);
+}
+
+function addInfoWindow(wtRequest){
+	
+	var infowindow = new google.maps.InfoWindow();
+
+	AUI().use('aui-io-request', function(A){
+		A.io.request(infoWindowURL + '&resType=infoWindow&requestId=' + wtRequest.requestId, {
+				on: {  
+					success: function() {
+								infowindow.setContent(this.get('responseData'));
+								}    
+				}
+		});
+	});
+	
+	
+	var marker = new google.maps.Marker({
+	    position: new google.maps.LatLng(wtRequest.fromLat,wtRequest.fromLng),
+	    map: map
+	});
+	google.maps.event.addListener(marker, 'click', function() {
+	  infowindow.open(map,marker);
+	});
+}
+
+function fullfillInfoWindow(infoURL, infowindow){
+	//alert(infoURL);
+	AUI().use('aui-io-request', function(A){
+		//var node =A.Node.create('<div/>');
+		//node.plug(A.Plugin.IO, { uri: infoURL, method: 'GET', showLoading:false });
+		//infowindow.setContent(node);
+		//alert(node.text());
+		A.io.request(infoURL, {
+						on: {  
+							success: function() {
+										infowindow.setContent(this.get('responseData'));
+										}    
+						}
+		});
+							
+		
+		
+	});
 }

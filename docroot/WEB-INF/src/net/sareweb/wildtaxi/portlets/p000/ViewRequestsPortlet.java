@@ -8,6 +8,7 @@ import java.util.List;
 import javax.portlet.PortletException;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
+import javax.servlet.jsp.JspPage;
 
 import net.sareweb.wildtaxi.model.Request;
 import net.sareweb.wildtaxi.service.RequestLocalServiceUtil;
@@ -37,7 +38,11 @@ public class ViewRequestsPortlet extends MVCPortlet {
 		if(resType.equals(_RES_TYPE_REQUESTS)){
 			serveResourceRequests(resourceRequest, resourceResponse);
 		}
-	};
+		else if(resType.equals(_RES_TYPE_INFO_WINDOW)){
+			serveResourceInfoWindow(resourceRequest, resourceResponse);
+			super.serveResource(resourceRequest, resourceResponse);
+		}
+	}
 	
 	private void serveResourceRequests(javax.portlet.ResourceRequest resourceRequest, javax.portlet.ResourceResponse resourceResponse) throws IOException ,PortletException {
 		long lastTime=ParamUtil.getLong(resourceRequest, "lastTime", System.currentTimeMillis());
@@ -57,9 +62,23 @@ public class ViewRequestsPortlet extends MVCPortlet {
 		
 		resourceResponse.getWriter().write(JSONFactoryUtil.serialize(requests));
 		
-	};
+	}
+	
+	
+	private void serveResourceInfoWindow(javax.portlet.ResourceRequest resourceRequest, javax.portlet.ResourceResponse resourceResponse) throws IOException ,PortletException {
+		_log.debug("\tServing requets details");
+		Long requestId = ParamUtil.getLong(resourceRequest, "requestId");
+		try {
+			Request request = RequestLocalServiceUtil.getRequest(requestId);
+			resourceRequest.setAttribute("myRequest", request);
+		} catch (Exception e) {
+			_log.error("No request found for " + requestId, e);
+			return;
+		}
+	}
 	
 	
 	private String _RES_TYPE_REQUESTS="requests";
+	private String _RES_TYPE_INFO_WINDOW="infoWindow";
 	private Log _log = LogFactoryUtil.getLog(this.getClass());
 }
