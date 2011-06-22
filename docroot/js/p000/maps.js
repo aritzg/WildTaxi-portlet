@@ -1,26 +1,34 @@
-var delayed;
+var delayedRequests;
+var delayedSideshow;
 var millsDelay = 5000;
 
 var lastTime;
 
 
-var requests=new Array(); //Array to store requests
-var requestsURL =''; //MUST be initialized with Liferay resource request URL
-var infoWindowURL ='';
+var localized =true; //If false, gets requests all around the world, if true, gets requests which start point falls within map boundaries in a given time
 
-function temporizeRequests(resURL){
-	requestsURL = resURL;
+var requests=new Array(); //Array to store requests
+var resourceURL =''; //MUST be initialized with Liferay resource request URL
+
+function temporizeRequests(){
+	
 	AUI().use('aui-io-request, aui-delayed-task', function(A){
-		delayed = new A.DelayedTask(getLastRequests);
-		delayed.delay(millsDelay);
-		getLastRequests();
+		delayedRequests = new A.DelayedTask(getLastRequests);
+		delayedRequests.delay(millsDelay);
+		setTimeout('getLastRequests()', 1000);
 	});
 }
 
 function getLastRequests(){
 	AUI().use('aui-io-request', function(A){	
 		//get requests
-  		A.io.request(requestsURL + '&resType=requests&lastTime=' + lastTime , {
+		var composedRequestURL = resourceURL + '&resType=requests&lastTime=' + lastTime;
+		if(localized){
+			var bounds = map.getBounds();
+			composedRequestURL = composedRequestURL + '&swLat=' + bounds.getSouthWest().lat() + '&swLng=' + bounds.getSouthWest().lng() + '&neLat=' + bounds.getNorthEast().lat() +  '&neLng=' + bounds.getNorthEast().lng();
+		}
+		
+  		A.io.request(composedRequestURL , {
 	  		on: {
 		   		success: function() {
 		   			//TODO:Pintar en el mapa las request obtenidas
@@ -29,6 +37,8 @@ function getLastRequests(){
 		     		YUI().use("json", function (Y) {
 						data = Y.JSON.parse(items);	 
 					});
+		     		
+		     		
 
 					for (var i = 0; i < data.list.length; i++) {
                  		if(i == 0){//Store latest request time
@@ -49,12 +59,15 @@ function getLastRequests(){
                  		r = new Request(requestId, name, fromLat, fromLng, fromAddress, toLat, toLng, toAddress, distance, beginDate, duration, userId);
                  		requests[requests.length]=r;
                  		traceRouteInMap(r);
+                 		addInfoWindow(r);
                		}
+					
+					
 		   		}
 		   	}
 		});		
 	});
-	delayed.delay(millsDelay);
+	delayedRequests.delay(millsDelay);
 }
 
 /*GOOGLE MAPS*/
@@ -69,17 +82,19 @@ var map;
 var defaultPoint =  new google.maps.LatLng(43.313188, -1.983719);
 
 function initWildMap(mapaCanvas, resURL){
-
-	infoWindowURL = resURL;
+	resourceURL = resURL;
+	
+	var now = new Date();
+	lastTime = now.getTime();
+	
 	
 	geocoder = new google.maps.Geocoder();
 	dirService = new google.maps.DirectionsService();
-	//directionsDisplay = new google.maps.DirectionsRenderer();
 
 	canvas=mapaCanvas;
 	
 	var myOptions = {
-			zoom: 8,
+			zoom: 11,
 			center: defaultPoint,
 			mapTypeId: google.maps.MapTypeId.ROADMAP 
 	};
@@ -88,11 +103,9 @@ function initWildMap(mapaCanvas, resURL){
 	
 }
 function traceRouteInMap(wtRequest){
-	point = new google.maps.LatLng((fromLat+toLat)/2.0, (fromLng + toLng)/2.0);
-
 	fromPoint = new google.maps.LatLng(wtRequest.fromLat,wtRequest.fromLng);
 	toPoint = new google.maps.LatLng(wtRequest.toLat,wtRequest.toLng);
-	wtRequest.directionsDisplay = new google.maps.DirectionsRenderer({markerOptions:{visible:false}});
+	wtRequest.directionsDisplay = new google.maps.DirectionsRenderer({markerOptions:{visible:false}, preserveViewport: true});
 	
 	wtRequest.directionsDisplay.setMap(map);
 	var request = {
@@ -104,11 +117,10 @@ function traceRouteInMap(wtRequest){
 	dirService.route(request,
 			function(directionsResult, directionsStatus){
 				if (directionsStatus == google.maps.DirectionsStatus.OK) {
-					wtRequest.directionsDisplay.setDirections(directionsResult);	
+					wtRequest.directionsDisplay.setDirections(directionsResult);
 				}
 			}
 		);
-	addInfoWindow(wtRequest);
 }
 
 function addInfoWindow(wtRequest){
@@ -116,7 +128,7 @@ function addInfoWindow(wtRequest){
 	var infowindow = new google.maps.InfoWindow();
 
 	AUI().use('aui-io-request', function(A){
-		A.io.request(infoWindowURL + '&resType=infoWindow&requestId=' + wtRequest.requestId, {
+		A.io.request(resourceURL + '&jspPage=/jsp/mapInfoWindow.jsp&resType=infoWindow&requestId=' + wtRequest.requestId, {
 				on: {  
 					success: function() {
 								infowindow.setContent(this.get('responseData'));
@@ -135,14 +147,31 @@ function addInfoWindow(wtRequest){
 	});
 }
 
-function fullfillInfoWindow(infoURL, infowindow){
+
+
+function temporizeSideShow(){
+
+	AUI().use('aui-delayed-task', function(A){
+		delayedSideshow = new A.DelayedTask(getSideShowInfo);
+		delayedSideshow.delay(millsDelay);
+		getSideShowInfo();
+	});
+}
+
+function getSideShowInfo(){
+	var sideShowUrl = resourceURL + '&resType=sideShow&jspPage=/jsp/p000/sideShow.jsp';
+	
 	AUI().use('aui-io-request', function(A){
-		A.io.request(infoURL, {
-						on: {  
-							success: function() {
-										infowindow.setContent(this.get('responseData'));
-										}    
-						}
+		A.io.request(sideShowUrl, {
+			on: {  
+				success: function() {
+					var node = A.one('#sideShow');
+					node.setContent(this.get('responseData'));
+							}    
+			}
 		});
 	});
+
+	
+	delayedSideshow.delay(millsDelay);
 }

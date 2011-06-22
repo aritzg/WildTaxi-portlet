@@ -1,5 +1,5 @@
 var popup=null;
-function popUp(url,width, heigth){
+function popUp(url,width, heigth, modal){
 	
 	AUI().use('aui-dialog', function(A){
 		popup = new A.Dialog(
@@ -7,7 +7,8 @@ function popUp(url,width, heigth){
 					centered: true,
 					height: heigth,
 					title: '',
-					width: width					
+					width: width,
+					modal: modal
 				}
 			).render();	
 		popup.plug(
@@ -19,13 +20,14 @@ function popUp(url,width, heigth){
 	});
 }
 
-function refreshElementWithServedResource(elementId, resourceURL){
+function refreshElementWithServedResource(elementId, rURL){
 	AUI().use('aui-io-request', function(A){
 		var node = A.one('#'+elementId);
 		node.empty();
 		node2 =A.Node.create('<div/>');
-		node2.plug(A.Plugin.IO, { uri: resourceURL, method: 'GET', showLoading:false });
+		alert(rURL);
+		node2.plug(A.Plugin.IO, { uri: rURL, method: 'GET', showLoading:false });
+		alert(rURL);
 		node2.appendTo('#'+elementId);
 	});
-
 }

@@ -21,10 +21,15 @@ import com.liferay.portal.kernel.dao.orm.Criterion;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.model.User;
+import com.liferay.portal.service.UserLocalServiceUtil;
 
 import net.sareweb.wildtaxi.model.Request;
 import net.sareweb.wildtaxi.service.base.RequestLocalServiceBaseImpl;
+import net.sareweb.wildtaxi.util.WTEvent;
+import net.sareweb.wildtaxi.util.WTEventHandler;
 import net.sareweb.wildtaxi.util.comparator.RequestBeginDateComparator;
 
 /**
@@ -47,9 +52,32 @@ import net.sareweb.wildtaxi.util.comparator.RequestBeginDateComparator;
  * @see net.sareweb.wildtaxi.service.RequestLocalServiceUtil
  */
 public class RequestLocalServiceImpl extends RequestLocalServiceBaseImpl {
-	public List<Request> getRequestNewerThanDate(Date fromDate) throws SystemException {
+	
+	@Override
+	public Request addRequest(Request request) throws SystemException {
+		Request r = super.addRequest(request);
+		try {
+			User u1 = UserLocalServiceUtil.getUser(request.getUserId());
+			WTEventHandler.getInstance().addEvent(WTEvent.TYPE_CREATED_REQUEST, new Date(),u1, null, r);
+		} catch (PortalException e) {
+			e.printStackTrace();
+		}
+		
+		return r;
+	}
+	
+	public List<Request> getRequestNewerThanDate(Date fromDate, float swLat, float swLng, float neLat, float neLng) throws SystemException {
 		DynamicQuery dq = DynamicQueryFactoryUtil.forClass(Request.class);
-		Criterion modifiedDate = PropertyFactoryUtil.forName("beginDate").gt(fromDate);	
+		Criterion modifiedDate = PropertyFactoryUtil.forName("beginDate").gt(fromDate);
+		
+		if(swLat!=0 && swLng!=0 && neLat!=0 && neLng!=0){
+			Criterion minLat = PropertyFactoryUtil.forName("fromLat").gt(swLat);
+			Criterion maxLat = PropertyFactoryUtil.forName("fromLat").lt(neLat);
+			Criterion minLng = PropertyFactoryUtil.forName("fromLng").gt(swLng);
+			Criterion maxLng = PropertyFactoryUtil.forName("fromLng").lt(neLng);
+			dq.add(minLat).add(maxLat).add(minLng).add(maxLng);
+		}
+
 		dq.add(modifiedDate);
 		return requestPersistence.findWithDynamicQuery(dq,0,10,new RequestBeginDateComparator());
 	}

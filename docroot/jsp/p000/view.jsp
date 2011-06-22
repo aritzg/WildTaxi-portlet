@@ -2,15 +2,18 @@
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 
 <div class="wild-map" id="map_canvas" style="width:600px; height:400px;">
-
+</div>
+<div class="side-show-container" >
+	SideShow!!
+	<div class="side-show" id="sideShow">
+	</div>
 </div>
 
-<portlet:resourceURL var="getRequests" />
-<portlet:resourceURL var="getInfoWindow" >
-	<portlet:param name="jspPage" value="/jsp/mapInfoWindow.jsp"></portlet:param>
-</portlet:resourceURL>
+<portlet:resourceURL var="resURL" />
+
 <aui:script>
 lastTime=0;
-temporizeRequests('<%=getRequests.toString()%>');
-initWildMap(document.getElementById('map_canvas'),'<%=getInfoWindow.toString()%>');
+initWildMap(document.getElementById('map_canvas'),'<%=resURL.toString()%>');
+temporizeRequests();
+temporizeSideShow();
 </aui:script>

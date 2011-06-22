@@ -10,9 +10,11 @@ Request oneRequest = (Request)request.getAttribute("oneRequest");
 <div class="info-window">
 	<div class="info-name">
 		<%=oneRequest.getName()%> , <%=oneRequest.getDistance()/1000 %>Km. 
+		<c:if test="<%=themeDisplay.isSignedIn()%>">
 		<span>
-			<aui:a href='<%="javascript:popUp(\'" + offerTravelURL.toString() + "\', 600, 400)" %>'>Offer</aui:a>
+			<aui:a href='<%="javascript:popUp(\'" + offerTravelURL.toString() + "\', 600, 400, true)" %>'>Offer</aui:a>
 		</span>
+		</c:if>
 	</div>
 	<div class="info-portrait">
 		<img src="<%= themeDisplay.getPathImage() %>/user_portrait?img_id=<%=themeDisplay.getUser().getPortraitId()%>">
