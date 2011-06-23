@@ -25,9 +25,7 @@ function refreshElementWithServedResource(elementId, rURL){
 		var node = A.one('#'+elementId);
 		node.empty();
 		node2 =A.Node.create('<div/>');
-		alert(rURL);
 		node2.plug(A.Plugin.IO, { uri: rURL, method: 'GET', showLoading:false });
-		alert(rURL);
 		node2.appendTo('#'+elementId);
 	});
 }

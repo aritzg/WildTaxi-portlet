@@ -1,11 +1,15 @@
+<%@page import="com.liferay.portal.kernel.util.ParamUtil"%>
 <%@include file="/jsp/init.jsp"%>
 <%@page import="net.sareweb.wildtaxi.util.WTEvent"%>
 <%@page import="net.sareweb.wildtaxi.util.WTEventHandler"%>
 
 
 <%
-for(int i=0; i<WTEventHandler.getInstance().getEvents().size(); i++){
-	WTEvent event = (WTEvent)WTEventHandler.getInstance().getEvents().get(i);
+String aaa = ParamUtil.get(request, "resType", "asdasdasdasd");
+long time = ParamUtil.getLong(request, "lastTimeSideShow", 0);
+List<WTEvent> newestEvents = WTEventHandler.getInstance().getEvents(time); 
+for(int i=0; i<newestEvents.size(); i++){
+	WTEvent event = (WTEvent)newestEvents.get(i);
 %>
 	<%
 	if(event.getType().equals(WTEvent.TYPE_CREATED_REQUEST)){

@@ -3,7 +3,9 @@ var delayedSideshow;
 var millsDelay = 5000;
 
 var lastTime;
+var lastTimeSideShow = 0;
 
+var paused = true;
 
 var localized =true; //If false, gets requests all around the world, if true, gets requests which start point falls within map boundaries in a given time
 
@@ -67,7 +69,7 @@ function getLastRequests(){
 		   	}
 		});		
 	});
-	delayedRequests.delay(millsDelay);
+	if(!paused)delayedRequests.delay(millsDelay);
 }
 
 /*GOOGLE MAPS*/
@@ -159,19 +161,30 @@ function temporizeSideShow(){
 }
 
 function getSideShowInfo(){
-	var sideShowUrl = resourceURL + '&resType=sideShow&jspPage=/jsp/p000/sideShow.jsp';
+
+	var sideShowUrl = resourceURL + '&resType=sideShow&jspPage=/jsp/p000/sideShow.jsp&lastTimeSideShow=' + lastTimeSideShow;
 	
-	AUI().use('aui-io-request', function(A){
+	AUI().use('aui-io-request, anim', function(A){
 		A.io.request(sideShowUrl, {
 			on: {  
 				success: function() {
 					var node = A.one('#sideShow');
-					node.setContent(this.get('responseData'));
-							}    
+					//node.setContent(this.get('responseData'));
+					//TRIMed text
+					var htmlText = this.get('responseData').replace(/^\s+/g,'').replace(/\s+$/g,'');
+					node.prepend(htmlText);
+					
+					//UPDATE time
+					var now = new Date();
+					lastTimeSideShow = now.getTime();
+				}    
 			}
 		});
 	});
 
 	
-	delayedSideshow.delay(millsDelay);
+	if(!paused)delayedSideshow.delay(millsDelay);
 }
+
+
+
