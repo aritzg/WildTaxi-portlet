@@ -13,6 +13,12 @@
 			<aui:column>
 				<aui:input name="distance" id="distanceId"></aui:input>
 			</aui:column>
+			<aui:column>
+				<aui:field-wrapper label="aaa">
+					<liferay-ui:input-date yearRangeEnd="2013" yearRangeStart="2011" ></liferay-ui:input-date>
+					<liferay-ui:input-time minuteParam="minuteParam" amPmParam="amPmParam" hourParam="hourParam"></liferay-ui:input-time>
+				</aui:field-wrapper>
+			</aui:column>
 		</aui:fieldset>
 		<aui:fieldset>
 			<aui:column>
@@ -40,15 +46,16 @@
 			<aui:button type="submit"/>
 		</aui:button-row>
 	</div>
-	<div>
+	<div class="new-request-map">
 		<div class="request-from-to">
 			<aui:button-row>
 				<aui:button onClick="selectSourceOrDest('source')" value="from"/>
 				<aui:button onClick="selectSourceOrDest('dest')" value="to"/>
 			</aui:button-row>
 		</div>
-		<div class="request-map" id="map_canvas" style="width:400px; height:400px;"></div>
+		<div id="map_canvas"></div>
 	</div>
+	<div style="clear: both;"></div>
 </div>
 </aui:form>
 

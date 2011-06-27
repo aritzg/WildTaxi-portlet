@@ -2,7 +2,7 @@ var delayedRequests;
 var delayedSideshow;
 var millsDelay = 5000;
 
-var lastTime;
+var lastTime = 0;
 var lastTimeSideShow = 0;
 
 var paused = true;
@@ -184,6 +184,18 @@ function getSideShowInfo(){
 
 	
 	if(!paused)delayedSideshow.delay(millsDelay);
+}
+
+
+/*PAUSE AND PLAY procedures*/
+function play(){
+	temporizeRequests();
+	temporizeSideShow();
+	paused=false;
+}
+
+function pause(){
+	paused=true;
 }
 
 

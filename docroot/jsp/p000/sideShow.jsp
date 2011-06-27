@@ -14,7 +14,8 @@ for(int i=0; i<newestEvents.size(); i++){
 	<%
 	if(event.getType().equals(WTEvent.TYPE_CREATED_REQUEST)){
 	%>
-	<div class="event-created">
+	
+	<div class="event created">
 		<div class="portrait">
 		<img src="<%= themeDisplay.getPathImage() %>/user_portrait?img_id=<%=event.getU1().getPortraitId()%>">
 		</div>
