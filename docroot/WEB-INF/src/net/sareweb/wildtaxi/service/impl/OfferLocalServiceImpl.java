@@ -14,7 +14,19 @@
 
 package net.sareweb.wildtaxi.service.impl;
 
+import java.util.Date;
+
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.model.User;
+import com.liferay.portal.service.UserLocalServiceUtil;
+
+import net.sareweb.wildtaxi.model.Offer;
+import net.sareweb.wildtaxi.model.Request;
+import net.sareweb.wildtaxi.service.RequestLocalServiceUtil;
 import net.sareweb.wildtaxi.service.base.OfferLocalServiceBaseImpl;
+import net.sareweb.wildtaxi.util.WTEvent;
+import net.sareweb.wildtaxi.util.WTEventHandler;
 
 /**
  * The implementation of the offer local service.
@@ -36,4 +48,19 @@ import net.sareweb.wildtaxi.service.base.OfferLocalServiceBaseImpl;
  * @see net.sareweb.wildtaxi.service.OfferLocalServiceUtil
  */
 public class OfferLocalServiceImpl extends OfferLocalServiceBaseImpl {
+	
+	@Override
+	public Offer addOffer(Offer offer) throws SystemException {
+		Offer o = super.addOffer(offer);
+		try {
+			Request r = RequestLocalServiceUtil.getRequest(o.getRequestId());
+			User u1 = UserLocalServiceUtil.getUser(o.getUserId());
+			User u2 = UserLocalServiceUtil.getUser(r.getUserId());
+			WTEventHandler.getInstance().addEvent(WTEvent.TYPE_MADE_OFFER, new Date(),u1, u2, r, o);
+		} catch (PortalException e) {
+			e.printStackTrace();
+		}
+		return o;
+	}
+	
 }

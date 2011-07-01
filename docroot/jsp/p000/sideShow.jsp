@@ -14,12 +14,24 @@ for(int i=0; i<newestEvents.size(); i++){
 	<%
 	if(event.getType().equals(WTEvent.TYPE_CREATED_REQUEST)){
 	%>
-	
 	<div class="event created">
 		<div class="portrait">
 		<img src="<%= themeDisplay.getPathImage() %>/user_portrait?img_id=<%=event.getU1().getPortraitId()%>">
 		</div>
 		<div class="info">Created request <%=event.getRequest().getName()%></div>
+	</div>
+	<%
+	}
+	else if(event.getType().equals(WTEvent.TYPE_MADE_OFFER)){
+	%>
+	<div class="event offer">
+		<div class="portrait">
+		<img src="<%= themeDisplay.getPathImage() %>/user_portrait?img_id=<%=event.getU1().getPortraitId()%>">
+		</div>
+		<div class="info">Created request <%=event.getRequest().getName()%></div>
+		<div class="portrait2">
+		<img src="<%= themeDisplay.getPathImage() %>/user_portrait?img_id=<%=event.getU2().getPortraitId()%>">
+		</div>
 	</div>
 	<%
 	}

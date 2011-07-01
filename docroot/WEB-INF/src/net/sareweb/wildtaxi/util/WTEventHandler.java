@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Vector;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import net.sareweb.wildtaxi.model.Offer;
 import net.sareweb.wildtaxi.model.Request;
 
 import com.liferay.portal.model.User;
@@ -29,8 +30,8 @@ public class WTEventHandler {
 		if(events.size()>MAX_SIZE)events.poll();
 	}
 	
-	public void addEvent(String type, Date time, User u1, User u2, Request request){
-		WTEvent wte = new WTEvent(type, time, u1, u2, request);
+	public void addEvent(String type, Date time, User u1, User u2, Request request, Offer offer){
+		WTEvent wte = new WTEvent(type, time, u1, u2, request, offer);
 		events.add(wte);
 	}
 	

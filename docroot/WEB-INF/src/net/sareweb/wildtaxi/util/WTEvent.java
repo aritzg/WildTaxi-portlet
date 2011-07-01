@@ -2,6 +2,7 @@ package net.sareweb.wildtaxi.util;
 
 import java.util.Date;
 
+import net.sareweb.wildtaxi.model.Offer;
 import net.sareweb.wildtaxi.model.Request;
 
 import com.liferay.portal.model.User;
@@ -12,15 +13,17 @@ public class WTEvent {
 	private User u1;
 	private User u2;
 	private Request request;
+	private Offer offer;
 	
 	
 
-	public WTEvent(String type, Date time, User u1, User u2, Request request){
+	public WTEvent(String type, Date time, User u1, User u2, Request request, Offer offer){
 		this.type = type;
 		this.time = time;
 		this.u1 = u1;
 		this.u2 = u2;
 		this.request = request;
+		this.offer = offer;
 	}
 	
 	
@@ -97,4 +100,5 @@ public class WTEvent {
 
 
 	public static final String TYPE_CREATED_REQUEST="TYPE_CREATED_REQUEST";
+	public static final String TYPE_MADE_OFFER="TYPE_MADE_OFFER";
 }

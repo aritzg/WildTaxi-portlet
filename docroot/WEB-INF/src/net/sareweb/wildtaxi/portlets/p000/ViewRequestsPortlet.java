@@ -96,9 +96,8 @@ public class ViewRequestsPortlet extends MVCPortlet {
 	
 	
 	private void serveResourceRequests(javax.portlet.ResourceRequest resourceRequest, javax.portlet.ResourceResponse resourceResponse) throws IOException ,PortletException {
-		long lastTime=ParamUtil.getLong(resourceRequest, "lastTime", System.currentTimeMillis());
-		Date lastTimeDt = new Date();
-		lastTimeDt.setTime(lastTime);
+		
+		Date lastTimeDt = new Date(); //now
 		
 		float swLat = ParamUtil.getFloat(resourceRequest, "swLat", 0);
 		float swLng = ParamUtil.getFloat(resourceRequest, "swLng", 0);

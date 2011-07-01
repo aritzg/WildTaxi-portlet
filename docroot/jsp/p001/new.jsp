@@ -14,9 +14,9 @@
 				<aui:input name="distance" id="distanceId"></aui:input>
 			</aui:column>
 			<aui:column>
-				<aui:field-wrapper label="aaa">
-					<liferay-ui:input-date yearRangeEnd="2013" yearRangeStart="2011" ></liferay-ui:input-date>
-					<liferay-ui:input-time minuteParam="minuteParam" amPmParam="amPmParam" hourParam="hourParam"></liferay-ui:input-time>
+				<aui:field-wrapper label="wt-begin-date">
+					<liferay-ui:input-date yearRangeEnd="2013" yearRangeStart="2011" dayParam="beginDay" monthParam="beginMonth" yearParam="beginYear"/>
+					<liferay-ui:input-time minuteParam="beginMinute" amPmParam="beginAmPm" hourParam="beginHour" />
 				</aui:field-wrapper>
 			</aui:column>
 		</aui:fieldset>

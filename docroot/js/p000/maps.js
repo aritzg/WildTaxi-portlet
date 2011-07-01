@@ -2,7 +2,6 @@ var delayedRequests;
 var delayedSideshow;
 var millsDelay = 5000;
 
-var lastTime = 0;
 var lastTimeSideShow = 0;
 
 var paused = true;
@@ -24,7 +23,7 @@ function temporizeRequests(){
 function getLastRequests(){
 	AUI().use('aui-io-request', function(A){	
 		//get requests
-		var composedRequestURL = resourceURL + '&resType=requests&lastTime=' + lastTime;
+		var composedRequestURL = resourceURL + '&resType=requests';
 		if(localized){
 			var bounds = map.getBounds();
 			composedRequestURL = composedRequestURL + '&swLat=' + bounds.getSouthWest().lat() + '&swLng=' + bounds.getSouthWest().lng() + '&neLat=' + bounds.getNorthEast().lat() +  '&neLng=' + bounds.getNorthEast().lng();
@@ -43,9 +42,6 @@ function getLastRequests(){
 		     		
 
 					for (var i = 0; i < data.list.length; i++) {
-                 		if(i == 0){//Store latest request time
-                 			lastTime=data.list[i].modifiedDate.time;
-                 		}
                  		var requestId = data.list[i].requestId;
                  		var name = data.list[i].name;
                  		var fromLat = data.list[i].fromLat;
@@ -59,9 +55,13 @@ function getLastRequests(){
                  		var duration = data.list[i].duration;
                  		var userId = data.list[i].userId;
                  		r = new Request(requestId, name, fromLat, fromLng, fromAddress, toLat, toLng, toAddress, distance, beginDate, duration, userId);
-                 		requests[requests.length]=r;
-                 		traceRouteInMap(r);
-                 		addInfoWindow(r);
+
+                 		if(requests[requestId]==undefined){
+                 			requests[requestId] = r;
+                 			traceRouteInMap(r);
+                 			addInfoWindow(r);
+                 		}
+                 
                		}
 					
 					
@@ -86,10 +86,6 @@ var defaultPoint =  new google.maps.LatLng(43.313188, -1.983719);
 function initWildMap(mapaCanvas, resURL){
 	resourceURL = resURL;
 	
-	var now = new Date();
-	lastTime = now.getTime();
-	
-	
 	geocoder = new google.maps.Geocoder();
 	dirService = new google.maps.DirectionsService();
 
@@ -105,9 +101,14 @@ function initWildMap(mapaCanvas, resURL){
 	
 }
 function traceRouteInMap(wtRequest){
+	
 	fromPoint = new google.maps.LatLng(wtRequest.fromLat,wtRequest.fromLng);
 	toPoint = new google.maps.LatLng(wtRequest.toLat,wtRequest.toLng);
-	wtRequest.directionsDisplay = new google.maps.DirectionsRenderer({markerOptions:{visible:false}, preserveViewport: true});
+	//calculate opacity in function of time
+	var now = new Date();
+	var maxFuture = Math.min(432000000, wtRequest.beginDate.time - now.getTime());
+	var opacity = 1.0 - (maxFuture / 432000000.0);
+	wtRequest.directionsDisplay = new google.maps.DirectionsRenderer({markerOptions:{visible:false}, preserveViewport: true, polylineOptions:{strokeOpacity:opacity}});
 	
 	wtRequest.directionsDisplay.setMap(map);
 	var request = {

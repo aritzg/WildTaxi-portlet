@@ -1,6 +1,7 @@
 package net.sareweb.wildtaxi.util;
 
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import javax.portlet.ActionRequest;
 
@@ -24,8 +25,18 @@ public class RequestUtil {
 		r.setFromLng(ParamUtil.getFloat(actionRequest, "fromLng",0));
 		r.setToLat(ParamUtil.getFloat(actionRequest, "toLat",0));
 		r.setToLng(ParamUtil.getFloat(actionRequest, "toLng",0));
+		r.setDistance(ParamUtil.getLong(actionRequest, "distance",0));
 		
-		r.setBeginDate(new Date());
+		int beginYear = ParamUtil.getInteger(actionRequest, "beginYear");
+		int beginMonth = ParamUtil.getInteger(actionRequest, "beginMonth");
+		int beginDay = ParamUtil.getInteger(actionRequest, "beginDay");
+		int beginHour = ParamUtil.getInteger(actionRequest, "beginHour");
+		int beginMinute = ParamUtil.getInteger(actionRequest, "beginMinute");
+		int beginAmPm = ParamUtil.getInteger(actionRequest, "beginAmPm");
+		
+		GregorianCalendar beginCal = new GregorianCalendar(beginYear, beginMonth, beginDay, beginHour + (12*beginAmPm), beginMinute);
+		
+		r.setBeginDate(beginCal.getTime());
 		r.setCreateDate(new Date());
 		r.setModifiedDate(new Date());
 		

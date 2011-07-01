@@ -58,7 +58,7 @@ public class RequestLocalServiceImpl extends RequestLocalServiceBaseImpl {
 		Request r = super.addRequest(request);
 		try {
 			User u1 = UserLocalServiceUtil.getUser(request.getUserId());
-			WTEventHandler.getInstance().addEvent(WTEvent.TYPE_CREATED_REQUEST, new Date(),u1, null, r);
+			WTEventHandler.getInstance().addEvent(WTEvent.TYPE_CREATED_REQUEST, new Date(),u1, null, r, null);
 		} catch (PortalException e) {
 			e.printStackTrace();
 		}
